@@ -10,4 +10,4 @@ led = LED(led_pin)
 # Blink the LED
 while True:
     led.toggle()  # Toggle the LED on/off
-    sleep(1)      # Wait for 1 second
+    sleep(5)      # Wait for 1 second
