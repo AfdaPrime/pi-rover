@@ -1,0 +1,21 @@
+# Ignore Python bytecode files
+*.pyc
+
+# Ignore virtual environment directories
+venv/
+
+# Ignore editor/IDE specific files
+.idea/
+.vscode/
+
+# Ignore system files created by macOS
+.DS_Store
+
+# Ignore log files
+*.log
+
+# Ignore compiled binaries
+*.exe
+*.dll
+*.so
+*.dylib
