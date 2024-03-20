@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Define the motor with forward and backward pins
 motor = Motor(forward=17, backward=18)
-steer = Motor(left=22, right=23)
+steer = Motor(forward=22, backward=23)
 
 # Flag to indicate if motor is currently running
 motor_running = False
@@ -35,7 +35,7 @@ def backward():
 def left():
     global steer_turned
     steer_turned = True
-    steer.left()
+    steer.forward()
     return 'steer moved left'
 
 
@@ -43,7 +43,7 @@ def left():
 def right():
     global steer_turned
     steer_turned = True
-    steer.right()
+    steer.backward()
     return 'steer moved right'
 
 
