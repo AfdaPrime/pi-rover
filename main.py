@@ -9,20 +9,19 @@ motor = Motor(forward=17, backward=18)
 
 @app.route('/')
 def index():
+    motor.stop()
     return render_template('index.html')
 
 @app.route('/forward')
 def forward():
-    motor.forward()
-    sleep(1)  # Adjust the duration as needed
-    motor.stop()
+    while True:
+        motor.forward()
     return 'Motor moved forward'
 
 @app.route('/backward')
 def backward():
-    motor.backward()
-    sleep(1)  # Adjust the duration as needed
-    motor.stop()
+    while True:
+        motor.backward()
     return 'Motor moved backward'
 
 if __name__ == '__main__':
