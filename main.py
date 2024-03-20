@@ -14,14 +14,12 @@ def index():
 
 @app.route('/forward')
 def forward():
-    while True:
-        motor.forward()
+    motor.forward()
     return 'Motor moved forward'
 
 @app.route('/backward')
 def backward():
-    while True:
-        motor.backward()
+    motor.backward()
     return 'Motor moved backward'
 
 if __name__ == '__main__':
