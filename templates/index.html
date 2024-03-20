@@ -4,14 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Control</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('forward-btn').addEventListener('mousedown', function() {
+                fetch('/forward');
+            });
+            document.getElementById('forward-btn').addEventListener('mouseup', function() {
+                fetch('/stop');
+            });
+            document.getElementById('backward-btn').addEventListener('mousedown', function() {
+                fetch('/backward');
+            });
+            document.getElementById('backward-btn').addEventListener('mouseup', function() {
+                fetch('/stop');
+            });
+        });
+    </script>
 </head>
 <body>
     <h1>Motor Control</h1>
-    <form action="/forward" method="get">
-        <button type="submit">Move Forward</button>
-    </form>
-    <form action="/backward" method="get">
-        <button type="submit">Move Backward</button>
-    </form>
+    <button id="forward-btn">Move Forward</button>
+    <button id="backward-btn">Move Backward</button>
 </body>
 </html>
