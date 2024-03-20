@@ -57,7 +57,7 @@ def stop():
 
 
 @app.route('/straight')
-def stop():
+def straight():
     global steer_turned
     steer_turned = False
     steer.stop()
