@@ -1,19 +1,34 @@
-import time
-import picamera
+import cv2
 
-# Initialize camera
-camera = picamera.PiCamera()
+# Open the camera
+cap = cv2.VideoCapture(0)  # 0 for /dev/video0
 
-try:
-    # Start preview
-    camera.start_preview()
+# Check if camera opened successfully
+if not cap.isOpened():
+    print("Error: Couldn't open the camera")
+    exit()
 
-    # Wait for 10 seconds
-    time.sleep(10)
+# Set desired resolution (640x480 in this case)
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
-    # Stop preview
-    camera.stop_preview()
+# Loop to capture and display frames
+while True:
+    # Capture frame-by-frame
+    ret, frame = cap.read()
 
-finally:
-    # Close camera
-    camera.close()
+    # Check if frame is captured successfully
+    if not ret:
+        print("Error: Couldn't capture frame")
+        break
+
+    # Display the frame
+    cv2.imshow('Camera Feed', frame)
+
+    # Press 'q' to exit
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+# Release the capture and close all windows
+cap.release()
+cv2.destroyAllWindows()
