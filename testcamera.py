@@ -1,7 +1,11 @@
 import cv2
 
+
+
+stream_url = 'http://192.168.0.115:8080/?action=stream'
+
 # Open the camera
-cap = cv2.VideoCapture(0)  # 0 for /dev/video0
+cap = cv2.VideoCapture(stream_url)  # 0 for /dev/video0
 
 # Check if camera opened successfully
 if not cap.isOpened():
