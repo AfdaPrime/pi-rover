@@ -36,7 +36,11 @@ def left():
     global steer_turned
     steer_turned = True
     steer.forward()
+    global motor_running
+    motor_running = True
+    motor.forward()
     return 'steer moved left'
+
 
 
 @app.route('/right')
@@ -44,8 +48,10 @@ def right():
     global steer_turned
     steer_turned = True
     steer.backward()
+    global motor_running
+    motor_running = True
+    motor.forward()
     return 'steer moved right'
-
 
 
 @app.route('/stop')
@@ -61,6 +67,9 @@ def straight():
     global steer_turned
     steer_turned = False
     steer.stop()
+    global motor_running
+    motor_running = False
+    motor.stop()
     return 'Steer stopped'
 
 @app.route('/status')

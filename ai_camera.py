@@ -12,7 +12,7 @@ model = YOLO("yolov8n.pt")
 
 names = model.model.names
 
-video_path = 0
+video_path = "http://192.168.0.115:8080/?action=stream"
 cap = cv2.VideoCapture(video_path)
 assert cap.isOpened(), "Error reading video file"
 
