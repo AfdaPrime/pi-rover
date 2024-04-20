@@ -26,6 +26,9 @@ def forward():
 
 @app.route('/backward')
 def backward():
+    global steer_turned
+    steer_turned = False
+    steer.stop()
     global motor_running
     motor_running = True
     motor.backward()
