@@ -35,7 +35,7 @@ def backward():
 def left():
     global steer_turned
     steer_turned = True
-    steer.forward()
+    steer.backward()
     global motor_running
     motor_running = True
     motor.forward()
@@ -47,7 +47,7 @@ def left():
 def right():
     global steer_turned
     steer_turned = True
-    steer.backward()
+    steer.forward()
     global motor_running
     motor_running = True
     motor.forward()
