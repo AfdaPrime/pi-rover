@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motor Control</title>
+    <link href="../src/output.css" rel="stylesheet">
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('forward-btn').addEventListener('mousedown', function() {
@@ -35,15 +37,40 @@
         });
     </script>
 </head>
-<body>
-    <h1>Motor Control</h1>
-    <button id="forward-btn">Straight Forward</button>
-    <button id="right-btn">Turn Right</button>
+<body class="bg-slate-500 flex justify-center items-center h-screen">
+    <div class="grid grid-cols-3 gap-4">
+        <button></button>
+        <button id="forward-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <svg class="h-6 w-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+            </svg>
+            Straight Forward
+        </button>
+        <button></button>
 
-    <button id="left-btn">Turn Left</button>
+        <button id="left-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <svg class="h-6 w-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+            Turn Left
+        </button>
+        <button></button>
 
-    <button id="backward-btn">Move Backward</button>
+        <button id="right-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <svg class="h-6 w-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+            Turn Right
+        </button>
+        <button></button>
 
-
+        <button id="backward-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+            <svg class="h-6 w-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5l-9 2 9 18 9-18-9-2zm0 0v8"/>
+            </svg>
+            Move Backward
+        </button>
+    </div>
 </body>
+
 </html>
