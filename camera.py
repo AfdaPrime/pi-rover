@@ -1,31 +1,32 @@
 import cv2
-from picamera.array import PiRGBArray
-from picamera import PiCamera
-import time
 
-# Initialize the camera
-camera = PiCamera()
-camera.resolution = (640, 480)
-camera.framerate = 30
-rawCapture = PiRGBArray(camera, size=(640, 480))
-
-# Allow the camera to warmup
-time.sleep(0.1)
-
-for frame in camera.capture_continuous(rawCapture, format="bgr", use_video_port=True):
-    # Grab the raw NumPy array representing the image
-    image = frame.array
-
-    # Display the frame
-    cv2.imshow("Frame", image)
+def main():
+    # Open the camera
+    cap = cv2.VideoCapture(0)
     
-    # Clear the stream in preparation for the next frame
-    rawCapture.truncate(0)
+    # Check if the camera opened successfully
+    if not cap.isOpened():
+        print("Error: Could not open camera.")
+        return
+    
+    while True:
+        # Capture frame-by-frame
+        ret, frame = cap.read()
+        
+        # If the frame was not captured successfully, break the loop
+        if not ret:
+            break
+        
+        # Display the resulting frame
+        cv2.imshow('Camera', frame)
+        
+        # Press 'q' on the keyboard to exit
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    
+    # When everything done, release the capture
+    cap.release()
+    cv2.destroyAllWindows()
 
-    # Check if the user pressed 'q' to quit
-    key = cv2.waitKey(1) & 0xFF
-    if key == ord("q"):
-        break
-
-# Cleanup
-cv2.destroyAllWindows()
+if __name__ == "__main__":
+    main()
