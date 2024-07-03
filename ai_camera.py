@@ -1,18 +1,24 @@
 import cv2
 import numpy as np
 from ultralytics import YOLO
-
 from ultralytics.utils.checks import check_imshow
 from ultralytics.utils.plotting import Annotator, colors
-
 from collections import defaultdict
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 track_history = defaultdict(lambda: [])
 model = YOLO("yolov8n.pt")
 
 names = model.model.names
 
-video_path = "http://192.168.0.115:8080/?action=stream"
+# video_path = "http://192.168.0.115:8080/?action=stream"
+
+
+video_path=os.getenv('ROVER_IP_ADDRESS')
+print(video_path)
 cap = cv2.VideoCapture(video_path)
 assert cap.isOpened(), "Error reading video file"
 
