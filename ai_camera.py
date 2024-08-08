@@ -10,14 +10,13 @@ from dotenv import load_dotenv
 load_dotenv()
 
 track_history = defaultdict(lambda: [])
-model = YOLO("yolov8n.pt")
+model = YOLO("yolov8n.pt").to("cpu")
 
 names = model.model.names
 
-# video_path = "http://192.168.0.115:8080/?action=stream"
+# video_path = "http://192.168.0.20:8080/?action=stream"
+video_path = 0
 
-
-video_path=os.getenv('ROVER_IP_ADDRESS')
 print(video_path)
 cap = cv2.VideoCapture(video_path)
 assert cap.isOpened(), "Error reading video file"
