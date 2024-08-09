@@ -9,41 +9,32 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Function to handle movement and keypress events
-            function handleMovement(btnId, startAction, stopAction, keyCode) {
-                let isMouseDown = false;
-    
-                document.getElementById(btnId).addEventListener('mousedown', function() {
-                    isMouseDown = true;
-                    fetch(startAction);
-                });
-    
-                document.getElementById(btnId).addEventListener('mouseup', function() {
-                    isMouseDown = false;
-                    fetch(stopAction);
-                });
-    
-                document.getElementById(btnId).addEventListener('mouseleave', function() {
-                    if (isMouseDown) {
-                        isMouseDown = false;
-                        fetch(stopAction);
-                    }
-                });
-    
-                // Handle keypress events
-                document.addEventListener('keydown', function(event) {
-                    if (event.keyCode === keyCode && !isMouseDown) { // Arrow key pressed
-                        isMouseDown = true;
-                        fetch(startAction);
-                    }
-                });
-    
-                document.addEventListener('keyup', function(event) {
-                    if (event.keyCode === keyCode && isMouseDown) { // Arrow key released
-                        isMouseDown = false;
-                        fetch(stopAction);
-                    }
-                });
-            }
+            document.getElementById('forward-btn').addEventListener('mousedown', function() {
+                fetch('/forward');
+            });
+            document.getElementById('forward-btn').addEventListener('mouseup', function() {
+                fetch('/stop');
+            });
+            document.getElementById('backward-btn').addEventListener('mousedown', function() {
+                fetch('/backward');
+            });
+            document.getElementById('backward-btn').addEventListener('mouseup', function() {
+                fetch('/stop');
+            });
+
+            document.getElementById('left-btn').addEventListener('mousedown', function() {
+                fetch('/left');
+            });
+            document.getElementById('left-btn').addEventListener('mouseup', function() {
+                fetch('/straight');
+            });
+
+            document.getElementById('right-btn').addEventListener('mousedown', function() {
+                fetch('/right');
+            });
+            document.getElementById('right-btn').addEventListener('mouseup', function() {
+                fetch('/straight');
+            });
     
             // Handle forward, backward, left, and right actions
             handleMovement('forward-btn', '/forward', '/stop', 38);   // Up arrow key for forward
