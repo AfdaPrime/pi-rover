@@ -1,49 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motor Control</title>
-    <link href="../src/output.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motor Control</title>
+  <link href="../src/output.css" rel="stylesheet">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Function to handle movement and keypress events
-            document.getElementById('forward-btn').addEventListener('mousedown', function() {
-                fetch('/forward');
-            });
-            document.getElementById('forward-btn').addEventListener('mouseup', function() {
-                fetch('/stop');
-            });
-            document.getElementById('backward-btn').addEventListener('mousedown', function() {
-                fetch('/backward');
-            });
-            document.getElementById('backward-btn').addEventListener('mouseup', function() {
-                fetch('/stop');
-            });
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Button controls
+      const forwardBtn = document.getElementById('forward-btn');
+      const backwardBtn = document.getElementById('backward-btn');
+      const leftBtn = document.getElementById('left-btn');
+      const rightBtn = document.getElementById('right-btn');
 
-            document.getElementById('left-btn').addEventListener('mousedown', function() {
-                fetch('/left');
-            });
-            document.getElementById('left-btn').addEventListener('mouseup', function() {
-                fetch('/straight');
-            });
+      // Flags to check if the button is pressed
+      let isForwardPressed = false;
+      let isBackwardPressed = false;
+      let isLeftPressed = false;
+      let isRightPressed = false;
 
-            document.getElementById('right-btn').addEventListener('mousedown', function() {
-                fetch('/right');
-            });
-            document.getElementById('right-btn').addEventListener('mouseup', function() {
-                fetch('/straight');
-            });
-    
-            // Handle forward, backward, left, and right actions
-            handleMovement('forward-btn', '/forward', '/stop', 38);   // Up arrow key for forward
-            handleMovement('backward-btn', '/backward', '/stop', 40); // Down arrow key for backward
-            handleMovement('left-btn', '/left', '/straight', 37);     // Left arrow key for left
-            handleMovement('right-btn', '/right', '/straight', 39);   // Right arrow key for right
-        });
-    </script>
-    
+      // Forward button
+      forwardBtn.addEventListener('mousedown', function () {
+        isForwardPressed = true;
+        fetch('/forward');
+      });
+      forwardBtn.addEventListener('mouseup', function () {
+        isForwardPressed = false;
+        fetch('/stop');
+      });
+      forwardBtn.addEventListener('mouseleave', function () {
+        if (isForwardPressed) {
+          isForwardPressed = false;
+          fetch('/stop');
+        }
+      });
+
+      // Backward button
+      backwardBtn.addEventListener('mousedown', function () {
+        isBackwardPressed = true;
+        fetch('/backward');
+      });
+      backwardBtn.addEventListener('mouseup', function () {
+        isBackwardPressed = false;
+        fetch('/stop');
+      });
+      backwardBtn.addEventListener('mouseleave', function () {
+        if (isBackwardPressed) {
+          isBackwardPressed = false;
+          fetch('/stop');
+        }
+      });
+
+      // Left button
+      leftBtn.addEventListener('mousedown', function () {
+        isLeftPressed = true;
+        fetch('/left');
+      });
+      leftBtn.addEventListener('mouseup', function () {
+        isLeftPressed = false;
+        fetch('/straight');
+      });
+      leftBtn.addEventListener('mouseleave', function () {
+        if (isLeftPressed) {
+          isLeftPressed = false;
+          fetch('/straight');
+        }
+      });
+
+      // Right button
+      rightBtn.addEventListener('mousedown', function () {
+        isRightPressed = true;
+        fetch('/right');
+      });
+      rightBtn.addEventListener('mouseup', function () {
+        isRightPressed = false;
+        fetch('/straight');
+      });
+      rightBtn.addEventListener('mouseleave', function () {
+        if (isRightPressed) {
+          isRightPressed = false;
+          fetch('/straight');
+        }
+      });
+
+      // Keyboard controls
+      document.addEventListener('keydown', function (event) {
+        switch (event.key) {
+          case 'ArrowUp':
+            fetch('/forward');
+            break;
+          case 'ArrowDown':
+            fetch('/backward');
+            break;
+          case 'ArrowLeft':
+            fetch('/left');
+            break;
+          case 'ArrowRight':
+            fetch('/right');
+            break;
+        }
+      });
+
+      document.addEventListener('keyup', function (event) {
+        switch (event.key) {
+          case 'ArrowUp':
+          case 'ArrowDown':
+            fetch('/stop');
+            break;
+          case 'ArrowLeft':
+          case 'ArrowRight':
+            fetch('/straight');
+            break;
+        }
+      });
+    });
+  </script>
 </head>
 <!-- <body class="bg-slate-500 flex justify-center items-center h-screen">
     <div class="grid grid-cols-3 gap-4">
@@ -56,7 +129,7 @@
         </button>
         <button></button>
 
-        <button id="left-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+<button id="left-btn" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
             <svg class="h-6 w-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
             </svg>
@@ -84,34 +157,51 @@
 </html> -->
 
 <body style="background-color: #4a5568; display: flex; justify-content: center; align-items: center; height: 100vh;">
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-        <button style="grid-column: 2; background-color: #4299e1; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; outline: none; transition: background-color 0.3s;" id="forward-btn" onmouseover="this.style.backgroundColor='#2b6cb0'" onmouseout="this.style.backgroundColor='#4299e1'">
-            <svg style="height: 1.5rem; width: 1.5rem; display: inline-block;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
-            </svg>
-            Straight Forward
-        </button>
-        <button style="grid-column: 1; background-color: #4299e1; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; outline: none; transition: background-color 0.3s;" id="left-btn" onmouseover="this.style.backgroundColor='#2b6cb0'" onmouseout="this.style.backgroundColor='#4299e1'">
-            <svg style="height: 1.5rem; width: 1.5rem; display: inline-block;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-            </svg>
-            Turn Left
-        </button>
-        <button style="display: none;"></button>
-        <button style="grid-column: 3; background-color: #4299e1; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; outline: none; transition: background-color 0.3s;" id="right-btn" onmouseover="this.style.backgroundColor='#2b6cb0'" onmouseout="this.style.backgroundColor='#4299e1'">
-            <svg style="height: 1.5rem; width: 1.5rem; display: inline-block;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-            Turn Right
-        </button>
-        <button style="display: none;"></button>
-        <button style="grid-column: 2; background-color: #4299e1; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; outline: none; transition: background-color 0.3s;" id="backward-btn" onmouseover="this.style.backgroundColor='#2b6cb0'" onmouseout="this.style.backgroundColor='#4299e1'">
-            <svg style="height: 1.5rem; width: 1.5rem; display: inline-block;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5l-9 2 9 18 9-18-9-2zm0 0v8"/>
-            </svg>
-            Move Backward
-        </button>
-    </div>
-</body>
-</html>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+    <button
+      style="grid-column: 2; background-color: #4299e1; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; outline: none; transition: background-color 0.3s;"
+      id="forward-btn" onmouseover="this.style.backgroundColor='#2b6cb0'"
+      onmouseout="this.style.backgroundColor='#4299e1'">
+      <svg style="height: 1.5rem; width: 1.5rem; display: inline-block;" fill="none" stroke="currentColor"
+        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+      </svg>
+      Straight Forward
+    </button>
+    <button
+      style="grid-column: 1; background-color: #4299e1; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; outline: none; transition: background-color 0.3s;"
+      id="left-btn" onmouseover="this.style.backgroundColor='#2b6cb0'"
+      onmouseout="this.style.backgroundColor='#4299e1'">
+      <svg style="height: 1.5rem; width: 1.5rem; display: inline-block;" fill="none" stroke="currentColor"
+        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+      Turn Left
+    </button>
+    <button style="display: none;"></button>
+    <button
+      style="grid-column: 3; background-color: #4299e1; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; outline: none; transition: background-color 0.3s;"
+      id="right-btn" onmouseover="this.style.backgroundColor='#2b6cb0'"
+      onmouseout="this.style.backgroundColor='#4299e1'">
+      <svg style="height: 1.5rem; width: 1.5rem; display: inline-block;" fill="none" stroke="currentColor"
+        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+      Turn Right
+    </button>
+    <button style="display: none;"></button>
+    <button
+      style="grid-column: 2; background-color: #4299e1; color: #ffffff; font-weight: bold; padding: 0.5rem 1rem; border-radius: 0.375rem; outline: none; transition: background-color 0.3s;"
+      id="backward-btn" onmouseover="this.style.backgroundColor='#2b6cb0'"
+      onmouseout="this.style.backgroundColor='#4299e1'">
 
+<svg style="height: 1.5rem; width: 1.5rem; display: inline-block;" fill="none" stroke="currentColor"
+        viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5l-9 2 9 18 9-18-9-2zm0 0v8" />
+      </svg>
+      Move Backward
+    </button>
+  </div>
+</body>
+
+</html>
